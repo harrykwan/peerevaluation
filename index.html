@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Peer Evaluation</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="css/stylish-portfolio.min.css" rel="stylesheet">
+  <style type="text/css">
+    .myinputbox{
+      margin: 20px;
+      border: 3px solid #212529;
+      width: 180px;
+      /*width: 200px;*/
+
+    }
+
+    .evaluatebox{
+       margin-bottom: 12px;
+       padding-left: 35px;
+       font-size: 23px;
+       display: block;
+
+    }
+
+    .evaluatebox>input{
+      width: 70px;
+      border: 3px solid #212529;
+      font-size: 23px;
+      margin-left: 20px;
+    }
+
+    /* The container */
+    .container_checkbox {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 23px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Hide the browser's default checkbox */
+    .container_checkbox input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      height: 25px;
+      width: 25px;
+      background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container_checkbox:hover input ~ .checkmark {
+      /*background-color: #ccc;*/
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .container_checkbox input:checked ~ .checkmark {
+      background-color: #ECB807;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .container_checkbox input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container_checkbox .checkmark:after {
+      left: 9px;
+      top: 7px;
+      width: 5px;
+      height: 10px;
+      border: solid #1d809f;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+
+    .mynextbutton{
+      margin-right: 0; background: #ECB807; color: #0d708f; font-size: 30px;
+
+      margin-top: 30px;
+    }
+
+    .mynextbutton:hover{
+      margin-right: 0; background: #DCA800; color: #0d708f; font-size: 30px;
+    }
+
+    .showscore{
+      font-size: 22px;
+    }
+
+    .studentstep{
+      /*padding-bottom: 80%;*/
+    }
+
+    .showformid{
+      color: #1d809f;
+    }
+
+  </style>
+
+</head>
+
+<body id="page-top">
+
+  <!-- Navigation -->
+  <a class="menu-toggle rounded" href="#">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <a class="js-scroll-trigger" href="#page-top">Peer Evaluation</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#page-top">Home</a>
+      </li>
+     
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#services">Fill Evaluation</a>
+      </li>
+
+       <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#about">Start New Evaluation</a>
+      </li>
+
+<!--       <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#contact">Check Your Score</a>
+      </li> -->
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header class="masthead d-flex">
+    <div class="container text-center my-auto">
+      <h1 class="mb-1">Peer Evaluation</h1>
+      <h3 class="mb-5">
+        <em>incognito, fair, free for teachers and students</em>
+      </h3>
+      <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about" style="margin: 20px;">Start new Form (teacher)</a>
+      <a class="btn btn-primary btn-xl js-scroll-trigger" href="#services">Fill Form (student)</a>
+    </div>
+    <div class="overlay"></div>
+  </header>
+
+ 
+
+  <!-- Services -->
+  <section class="content-section bg-primary text-white text-center" id="services">
+    <div class="container">
+      <div class="content-section-heading">
+      
+      <div id="studentstep1" class="studentstep">
+        <h2 class="mb-5">Please Enter The Form ID</h2>
+        <h3 hidden id="studentstep1idnotfound" class="text-secondary mb-0">ID not found</h3>
+        <input id="studentstep1id" type="text" name="" style="width: 350px; font-size: 30px;" class="myinputbox">
+      </div>
+
+
+      <div id="studentstep2" hidden class="studentstep">
+        <h2 class="mb-5">Please Enter Your Student ID</h2>
+        <h3 hidden id="studentstep2idnotfound" class="text-secondary mb-0">ID not found</h3>
+        <input id="studentstep2id" type="text" name="" style="width: 350px; font-size: 30px; " class="myinputbox">
+      </div>
+
+
+      <div id="studentstep3" hidden class="studentstep">
+        <h2 class="mb-5">Who are you going to evaluate</h2>
+        <h3 class="text-secondary mb-0"></h3>
+        <!-- <input type="text" name="" style="width: 350px; font-size: 30px;" class="myinputbox"> -->
+      
+        <div id="studentstep3dataarea"></div>
+     <!--   <label class="container_checkbox">Kwan Chi Lok
+        <input type="checkbox" checked="checked">
+        <span class="checkmark"></span>
+      </label>
+         <label class="container_checkbox">Chan Siu Ming
+        <input type="checkbox" checked="">
+        <span class="checkmark"></span>
+      </label>
+         <label class="container_checkbox">Chan Tai Ming
+        <input type="checkbox" checked="">
+        <span class="checkmark"></span>
+      </label> -->
+
+      <div style="width: 90%; text-align: right;">
+      <a class="btn btn-xl js-scroll-trigger mynextbutton" style="" onclick="studentstep3next()">Next</a>
+      </div>
+    </div>
+
+
+
+       <div id="studentstep4" hidden class="studentstep">
+          <h2 class="mb-5">Score between 0 to 10</h2>
+          <h3 class="text-secondary mb-0"></h3>
+          <!-- <input type="text" name="" style="width: 350px; font-size: 30px;" class="myinputbox"> -->
+          <div id="studentstep4dataarea"></div>
+         
+         <!-- <label class="evaluatebox">Kwan Chi Lok
+          <input type="number" value="0" min="0" max="10">
+        </label><label class="evaluatebox">Kwan Chi Lok
+          <input type="number" value="0" min="0" max="10">
+        </label><label class="evaluatebox">Kwan Chi Lok
+          <input type="number" value="0" min="0" max="10">
+        </label> -->
+          
+
+        <div style="width: 90%; text-align: right;">
+        <a class="btn btn-xl js-scroll-trigger mynextbutton" style="" href="#services" onclick="submiteform()">Done</a>
+        </div>
+
+      </div>
+
+
+
+
+
+
+      </div>
+      <!-- <div class="row">
+        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="icon-screen-smartphone"></i>
+          </span>
+          <h4>
+            <strong>Responsive</strong>
+          </h4>
+          <p class="text-faded mb-0">Looks great on any screen size!</p>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="icon-pencil"></i>
+          </span>
+          <h4>
+            <strong>Redesigned</strong>
+          </h4>
+          <p class="text-faded mb-0">Freshly redesigned for Bootstrap 4.</p>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="icon-like"></i>
+          </span>
+          <h4>
+            <strong>Favorited</strong>
+          </h4>
+          <p class="text-faded mb-0">Millions of users
+            <i class="fas fa-heart"></i>
+            Start Bootstrap!</p>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="icon-mustache"></i>
+          </span>
+          <h4>
+            <strong>Question</strong>
+          </h4>
+          <p class="text-faded mb-0">I mustache you a question...</p>
+        </div>
+      </div> -->
+    </div>
+  </section>
+
+   <!-- About -->
+  <section class="content-section bg-light" id="about">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-lg-10 mx-auto" id="teacherstep1">
+          <h2>Start New Form</h2>
+          <!-- <p class="lead mb-5">This theme features a flexible, UX friendly sidebar menu and stock photos from our friends at -->
+            <!-- <a href="https://unsplash.com/">Unsplash</a>!</p> -->
+          <div id="createforminputs" style="text-align: left; margin-top: 30px; margin-bottom: 20px; margin-left: auto; margin-right: auto; width: 200px;">
+            Instructor Name: <input class="myinputbox " type="text"><br>
+            Course Title: <input class="myinputbox " type="text"><br>
+            Student Name List: <textarea class="myinputbox " type="text" style="height: 300px;">student1,sid1,gp1
+student2,sid2,gp1
+student3,sid3,gp1
+student4,sid4,gp2
+student5,sid5,gp2
+</textarea><br>
+          </div>
+
+
+
+          <a class="btn btn-dark btn-xl js-scroll-trigger" style="" onclick="createnewform()" href="#about">Create</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Callout -->
+  <section class="callout" id="contact">
+    <div class="container text-center">
+<!--       <h2 class="mx-auto mb-5">Check Your Score</h2>
+      <h5 class="mx-auto mb-1">please enter your SID</h5>
+      <input id="checkscoresid" type="text" class="myinputbox"> -->
+      <!-- <a class="btn btn-primary btn-xl" href="https://startbootstrap.com/template-overviews/stylish-portfolio/">Sumit</a> -->
+    </div>
+  </section>
+
+
+<script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-firestore.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDfGvTmN4eNNevEoUjggfNwnvVsUDnzR_w",
+    authDomain: "peer-evaluation-1b847.firebaseapp.com",
+    databaseURL: "https://peer-evaluation-1b847.firebaseio.com",
+    projectId: "peer-evaluation-1b847",
+    storageBucket: "",
+    messagingSenderId: "209381596667",
+    appId: "1:209381596667:web:cd873df591e7c7a7"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+
+<script type="text/javascript">
+
+  function createnewform(){
+    var tempinstrctorname = document.getElementById("createforminputs").getElementsByTagName("input")[0].value;
+    var tempcoursetitle = document.getElementById("createforminputs").getElementsByTagName("input")[1].value;
+    var tempstudentlist = document.getElementById("createforminputs").getElementsByTagName("textarea")[0].value.split("\n");
+    var tempstudentjson = {};
+    for (var j=0; j<tempstudentlist.length-1; j++){
+      tempstudentlist[j] = tempstudentlist[j].split(",");
+      tempstudentjson[tempstudentlist[j][1]] = {};
+      tempstudentjson[tempstudentlist[j][1]].group = tempstudentlist[j][2];
+      tempstudentjson[tempstudentlist[j][1]].name = tempstudentlist[j][0];
+      tempstudentjson[tempstudentlist[j][1]].done = false;
+      tempstudentjson[tempstudentlist[j][1]].fillednum = 0;
+      tempstudentjson[tempstudentlist[j][1]].scroe = 0;
+    }
+    var tempgenid = makeid(20);
+    while(allformid[tempgenid]){
+      tempgenid = makeid(20);
+    }
+
+    var tempjson1 = {};
+    tempjson1 = {"studentlist": tempstudentjson,
+        "instructor": tempinstrctorname};
+    var tempjson2 = {};
+    tempjson2[tempgenid] = tempinstrctorname+'|'+tempcoursetitle;
+
+    console.log(tempjson1,tempjson2)
+
+      var db = firebase.firestore();
+      var docRef = db.collection("formid").doc(tempgenid).set(
+        tempjson1
+      , { merge: true });
+
+      docRef = db.collection("startdata").doc("allformid").set(
+        tempjson2
+      , { merge: true });
+
+      document.getElementById("teacherstep1").innerHTML = "<h2>Done! Your form id is <span class='showformid'>"+tempgenid+"</span></h2>"
+  }
+
+  function submiteform(){
+    if (confirm("Are you sure?")){
+      var allinputbox = document.getElementById("studentstep4dataarea").getElementsByTagName("input");
+      var allgoogleform = document.getElementById("googleform").getElementsByTagName("input");
+      var tempgoogleformstring = "";
+      nowstudentlist[nowsid].done = true;
+      for (var j=0; j<allinputbox.length; j++){
+        var tempnowsid = allinputbox[j].name;
+        nowstudentlist[tempnowsid].fillednum++;
+        nowstudentlist[tempnowsid].score=parseInt(nowstudentlist[tempnowsid].score)+parseInt(allinputbox[j].value);
+        tempgoogleformstring += tempnowsid+','+allinputbox[j].value+"|";
+      }
+      allgoogleform[0].value = nowformid;
+      allgoogleform[1].value = nowsid;
+      allgoogleform[2].value = tempgoogleformstring;
+      document.getElementById("googleform").submit();
+      
+      var db = firebase.firestore();
+      var docRef = db.collection("formid").doc(nowformid).set({
+        "studentlist": nowstudentlist
+      }, { merge: true });
+      document.getElementById("studentstep4").innerHTML = "<h1>Thank You</h1><span class='showscore'>Your Score: " + nowstudentlist[nowsid].score/nowstudentlist[nowsid].fillednum + "</span>";
+    }
+  }
+
+  function getallformid(){
+    //   return firebase.database().ref('/formid').once('value').then(function(snapshot) {
+    //   console.log(snapshot)
+    // });
+    var db = firebase.firestore();
+    var docRef = db.collection("startdata").doc("allformid");
+
+    docRef.get().then(function(doc) {
+      if (doc.exists) {
+          // console.log("Document data:", doc.data());
+          allformid = doc.data();
+          console.log(allformid)
+      } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+      }
+    }).catch(function(error) {
+      console.log("Error getting document:", error);
+    });
+
+  }
+
+  function getformdata(x){
+    var db = firebase.firestore();
+    var docRef = db.collection("formid").doc(x);
+
+    docRef.onSnapshot(function(doc) {
+      if (doc.exists) {
+          // console.log("Document data:", doc.data());
+          nowformdata = doc.data();
+          console.log(nowformdata)
+          nowstudentlist = nowformdata.studentlist
+      } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+      }
+    })
+  }
+
+  function checkformid(x){
+    if (allformid[x]){
+      nowformid = x;
+      getformdata(x);
+      document.getElementById("studentstep1").hidden = true;
+      document.getElementById("studentstep2").hidden = false;
+    } else {
+      //fail
+      document.getElementById("studentstep1idnotfound").hidden = false;
+    }
+  }
+
+  function checksid(x){
+    if (nowstudentlist[x]){
+      document.getElementById("studentstep2").hidden = true;
+      document.getElementById("studentstep4").hidden = false;
+      nowsid = x;
+      if (nowstudentlist[nowsid].done){
+        //show score
+        var youhavedonestring = "<h1>You have done you evaluate!</h1>";
+        if (nowstudentlist[nowsid].fillednum==0){
+            document.getElementById("studentstep4").innerHTML = youhavedonestring+"<span class='showscore'>No one evaluate you yet</span>";
+        } else {
+           document.getElementById("studentstep4").innerHTML = youhavedonestring+"<span class='showscore'>Your Score: " + nowstudentlist[nowsid].score/nowstudentlist[nowsid].fillednum + "</span>";
+        }
+       
+      } else {
+        console.log(nowstudentlist[nowsid].group);
+        // document.getElementById("studentstep3").hidden = false;
+        var temphtml = "";
+        for (var j in nowstudentlist){
+          if (j!=nowsid&&nowstudentlist[j].group==nowstudentlist[nowsid].group){
+            temphtml+='<label class="evaluatebox">'+nowstudentlist[j].name+'<input name="'+j+'" type="number" value="0" min="0" max="10"></label>'
+          }
+        }
+        document.getElementById("studentstep4dataarea").innerHTML = temphtml;
+      }
+     
+    } else {
+      //fail
+      document.getElementById("studentstep2idnotfound").hidden = false;
+    }
+  }
+
+  function studentstep3next(){
+    var allcheckbox = document.getElementsByClassName("container_checkbox");
+
+  }
+
+  function makeid(length) {
+     var result           = '';
+     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+     var charactersLength = characters.length;
+     for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+     }
+     return result;
+  }
+
+
+  function startpage() {
+    getallformid();
+    document.getElementById("studentstep1id").addEventListener("change",function(){
+      checkformid(this.value);
+    })
+    // document.getElementById("studentstep1idnotfound").hidden = true;
+    document.getElementById("studentstep2id").addEventListener("change",function(){
+      checksid(this.value);
+    })
+  }
+
+  var allformid, nowformid, nowformdata, nowstudentlist, nowsid;
+  startpage();
+ 
+
+
+</script>
+
+
+  
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/stylish-portfolio.min.js"></script>
+
+
+  <div hidden>
+    <form id="googleform" target="googleformiframe" action="https://docs.google.com/forms/d/e/1FAIpQLSfimiiz6-NG1u18KZ-VXCG9R9M1n0Yse-SdLl6iWm7p7eWUuw/formResponse" method="POST" >
+      <input name="entry.279676806"> formid
+      <input name="entry.901655915"> sid
+      <input name="entry.572615800"> evaluation
+    </form>
+    <iframe src="" name="googleformiframe" id="googleformiframe"></iframe>
+  </div>
+
+
+
+</body>
+
+</html>
