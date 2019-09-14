@@ -264,7 +264,7 @@
           </span>
           <h4>
             <strong>Responsive</strong>
-          </h4>
+          </h4>土
           <p class="text-faded mb-0">Looks great on any screen size!</p>
         </div>
         <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
@@ -374,7 +374,7 @@ student5,sid5,gp2
       tempstudentjson[tempstudentlist[j][1]].name = tempstudentlist[j][0];
       tempstudentjson[tempstudentlist[j][1]].done = false;
       tempstudentjson[tempstudentlist[j][1]].fillednum = 0;
-      tempstudentjson[tempstudentlist[j][1]].scroe = 0;
+      tempstudentjson[tempstudentlist[j][1]].score = 0;
     }
     var tempgenid = makeid(20);
     while(allformid[tempgenid]){
@@ -408,6 +408,10 @@ student5,sid5,gp2
       var tempgoogleformstring = "";
       nowstudentlist[nowsid].done = true;
       for (var j=0; j<allinputbox.length; j++){
+        if (!(parseInt(allinputbox[j].value)<10&&parseInt(allinputbox[j].value)>0)||allinputbox.value==""){
+          alert("Please enter score between 0-10");
+          return;
+        }
         var tempnowsid = allinputbox[j].name;
         nowstudentlist[tempnowsid].fillednum++;
         nowstudentlist[tempnowsid].score=parseInt(nowstudentlist[tempnowsid].score)+parseInt(allinputbox[j].value);
