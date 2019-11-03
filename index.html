@@ -33,13 +33,36 @@
        margin-bottom: 12px;
        padding-left: 35px;
        font-size: 23px;
-       display: block;
+       /* display: block; */
+      text-align: center;
+      /* align-items: center; */
+       /* text-align: left; */
+      /* margin-left: auto; */
+    }
+
+    .evaluatebox>div{
+      text-align: left;
+      width: 300px;
+      /* border: 3px solid #222; */
+      padding: 10px;
+      /* border-top-width: 50px; */
+      /* position: absolute; */
+      
+    }
+
+    .evaluatebox>div>span{
+      font-size: 25px;
+      margin-bottom: 15px;
+      font-weight: bold;
+      /* position: absolute; */
+      /* display: block; */
+      /* top: -50px; */
 
     }
 
     .evaluatebox>input{
       width: 70px;
-      border: 3px solid #212529;
+      /* border: 3px solid #212529; */
       font-size: 23px;
       margin-left: 20px;
     }
@@ -175,10 +198,10 @@
     <div class="container text-center my-auto">
       <h1 class="mb-1">Peer Evaluation</h1>
       <h3 class="mb-5">
-        <em>incognito, fair, free for teachers and students</em>
+        <!-- <em>incognito, fair, free for teachers and students</em> -->
       </h3>
-      <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about" style="margin: 20px;">Start new Form (teacher)</a>
-      <a class="btn btn-primary btn-xl js-scroll-trigger" href="#services">Fill Form (student)</a>
+      <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about" style="margin: 20px;">Teacher (Start new Evaluation)</a>
+      <a class="btn btn-primary btn-xl js-scroll-trigger" href="#services">Student (Fill Evaluation)</a>
     </div>
     <div class="overlay"></div>
   </header>
@@ -230,15 +253,42 @@
 
 
 
-       <div id="studentstep4" hidden class="studentstep">
-          <h2 class="mb-5">Score between 0 to 10</h2>
+       <div id="studentstep4" class="studentstep" hidden>
+          <h2 class="mb-5">Score between 1 to 10</h2>
           <h3 class="text-secondary mb-0"></h3>
           <!-- <input type="text" name="" style="width: 350px; font-size: 30px;" class="myinputbox"> -->
           <div id="studentstep4dataarea"></div>
          
-         <!-- <label class="evaluatebox">Kwan Chi Lok
-          <input type="number" value="0" min="0" max="10">
-        </label><label class="evaluatebox">Kwan Chi Lok
+         <!-- <label class="evaluatebox">
+           <div>
+            <span> Kwan Chi Lok</span>
+          <br>Score:<br>
+          <input type="number" value="5" min="1" max="10">
+          <br>Comments:<br>
+          <textarea></textarea>
+           </div>
+        </label>
+        <label class="evaluatebox">
+            <div>
+             <span style="margin-bottom: 15px; font-weight: bold;"> Kwan Chi Lok</span>
+           <br>Score:<br>
+           <input type="number" value="5" min="1" max="10">
+           <br>Comments:<br>
+           <textarea></textarea>
+            </div>
+         </label>
+         <label class="evaluatebox">
+            <div>
+             <span style="margin-bottom: 15px; font-weight: bold;"> Kwan Chi Lok</span>
+           <br>Score:<br>
+           <input type="number" value="5" min="1" max="10">
+           <br>Comments:<br>
+           <textarea></textarea>
+            </div>
+         </label>
+        
+        
+        <label class="evaluatebox">Kwan Chi Lok
           <input type="number" value="0" min="0" max="10">
         </label><label class="evaluatebox">Kwan Chi Lok
           <input type="number" value="0" min="0" max="10">
@@ -375,6 +425,7 @@ student5,sid5,gp2
       tempstudentjson[tempstudentlist[j][1]].done = false;
       tempstudentjson[tempstudentlist[j][1]].fillednum = 0;
       tempstudentjson[tempstudentlist[j][1]].score = 0;
+      tempstudentjson[tempstudentlist[j][1]].comment = '';
     }
     var tempgenid = makeid(20);
     while(allformid[tempgenid]){
@@ -404,19 +455,26 @@ student5,sid5,gp2
   function submiteform(){
     if (confirm("Are you sure?")){
       var allinputbox = document.getElementById("studentstep4dataarea").getElementsByTagName("input");
+      var alltextbox = document.getElementById("studentstep4dataarea").getElementsByTagName("textarea")
       var allgoogleform = document.getElementById("googleform").getElementsByTagName("input");
       var tempgoogleformstring = "";
       nowstudentlist[nowsid].done = true;
+
       for (var j=0; j<allinputbox.length; j++){
         if (!(parseInt(allinputbox[j].value)<10&&parseInt(allinputbox[j].value)>0)||allinputbox.value==""){
-          alert("Please enter score between 0-10");
+          alert("Please enter score between 1-10");
           return;
         }
+      }
+
+      for (var j=0; j<allinputbox.length; j++){
         var tempnowsid = allinputbox[j].name;
         nowstudentlist[tempnowsid].fillednum++;
         nowstudentlist[tempnowsid].score=parseInt(nowstudentlist[tempnowsid].score)+parseInt(allinputbox[j].value);
-        tempgoogleformstring += tempnowsid+','+allinputbox[j].value+"|";
+        nowstudentlist[tempnowsid].comment+=alltextbox[j].value+'|';
+        tempgoogleformstring += tempnowsid+','+allinputbox[j].value+'\\'+alltextbox[j].value+"|";
       }
+
       allgoogleform[0].value = nowformid;
       allgoogleform[1].value = nowsid;
       allgoogleform[2].value = tempgoogleformstring;
@@ -426,8 +484,27 @@ student5,sid5,gp2
       var docRef = db.collection("formid").doc(nowformid).set({
         "studentlist": nowstudentlist
       }, { merge: true });
-      document.getElementById("studentstep4").innerHTML = "<h1>Thank You</h1><span class='showscore'>Your Score: " + nowstudentlist[nowsid].score/nowstudentlist[nowsid].fillednum + "</span>";
+      // document.getElementById("studentstep4").innerHTML = "<h1>Thank You</h1><span class='showscore'>Your Score: " + nowstudentlist[nowsid].score/nowstudentlist[nowsid].fillednum + "</span>";
+      showscore();
     }
+  }
+
+  function showscore(){
+    var youhavedonestring = "<h1>You have done your evaluate!</h1>";
+    if (nowstudentlist[nowsid].fillednum==0||!nowstudentlist[nowsid].fillednum){
+        document.getElementById("studentstep4").innerHTML = youhavedonestring+"<span class='showscore'>No one evaluate you yet</span>";
+    } else {
+      document.getElementById("studentstep4").innerHTML = youhavedonestring+"<span class='showscore'>Your Score: <br>" + nowstudentlist[nowsid].score/nowstudentlist[nowsid].fillednum + "</span>";
+      if (nowstudentlist[nowsid].comment){
+        document.getElementById("studentstep4").innerHTML+="<div class='showscore'>Other's Comment:</div>"
+        var tempallcomment = nowstudentlist[nowsid].comment.split("|");
+        for (var j=0; j<tempallcomment.length-1; j++){
+          document.getElementById("studentstep4").innerHTML+='<div class="showscore">- '+tempallcomment[j]+'</div>';
+        }
+      }
+
+    }
+    
   }
 
   function getallformid(){
@@ -488,20 +565,16 @@ student5,sid5,gp2
       nowsid = x;
       if (nowstudentlist[nowsid].done){
         //show score
-        var youhavedonestring = "<h1>You have done you evaluate!</h1>";
-        if (nowstudentlist[nowsid].fillednum==0){
-            document.getElementById("studentstep4").innerHTML = youhavedonestring+"<span class='showscore'>No one evaluate you yet</span>";
-        } else {
-           document.getElementById("studentstep4").innerHTML = youhavedonestring+"<span class='showscore'>Your Score: " + nowstudentlist[nowsid].score/nowstudentlist[nowsid].fillednum + "</span>";
-        }
+        showscore()
        
       } else {
-        console.log(nowstudentlist[nowsid].group);
+        // console.log(nowstudentlist[nowsid].group);
         // document.getElementById("studentstep3").hidden = false;
         var temphtml = "";
         for (var j in nowstudentlist){
           if (j!=nowsid&&nowstudentlist[j].group==nowstudentlist[nowsid].group){
-            temphtml+='<label class="evaluatebox">'+nowstudentlist[j].name+'<input name="'+j+'" type="number" value="0" min="0" max="10"></label>'
+            // temphtml+='<label class="evaluatebox">'+nowstudentlist[j].name+'<input name="'+j+'" type="number" value="0" min="0" max="10"></label>'
+            temphtml+='<label class="evaluatebox"><div><span>'+nowstudentlist[j].name+'</span><br>Score:<br><input name="'+j+'" type="number" value="5" min="1" max="10"><br>Comments:<br><textarea></textarea></div></label>'
           }
         }
         document.getElementById("studentstep4dataarea").innerHTML = temphtml;
