@@ -461,8 +461,12 @@ student5,sid5,gp2
       nowstudentlist[nowsid].done = true;
 
       for (var j=0; j<allinputbox.length; j++){
-        if (!(parseInt(allinputbox[j].value)<10&&parseInt(allinputbox[j].value)>0)||allinputbox.value==""){
+        if (!(parseInt(allinputbox[j].value)<10&&parseInt(allinputbox[j].value)>0)||allinputbox[j].value==""){
           alert("Please enter score between 1-10");
+          return;
+        }
+        if (!(alltextbox[j].value.split(" ").length<50)||alltextbox[j].value==""){
+          alert("Please enter no more than 50 words");
           return;
         }
       }
